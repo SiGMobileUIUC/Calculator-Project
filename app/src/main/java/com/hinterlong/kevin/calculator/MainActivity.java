@@ -2,31 +2,31 @@ package com.hinterlong.kevin.calculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class MainActivity extends AppCompatActivity {
-	@BindView(R.id.input1) AppCompatEditText input1;
-	@BindView(R.id.input2) AppCompatEditText input2;
-	@BindView(R.id.result) TextView result;
+
+	private EditText input1;
+	private EditText input2;
+	private TextView result;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		ButterKnife.bind(this);
+
+		input1 = findViewById(R.id.input1);
+		input2 = findViewById(R.id.input2);
+		result = findViewById(R.id.result);
 	}
 
-	@OnClick({R.id.plus, R.id.minus, R.id.times, R.id.divide})
-	public void onClick(AppCompatButton button) {
+	public void onClick(View button) {
 		Double first = parseInput(input1);
 		Double second = parseInput(input2);
 		if (first == null || second == null) {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 		result.setText(String.format(Locale.getDefault(), "Result is %.3f", out));
 	}
 
-	public Double parseInput(AppCompatEditText input) {
+	public Double parseInput(EditText input) {
 		if (input == null || input.getText() == null || input.getText().toString().isEmpty()) {
 			return null;
 		}
